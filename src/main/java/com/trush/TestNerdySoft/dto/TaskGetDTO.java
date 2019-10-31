@@ -4,9 +4,18 @@ public class TaskGetDTO {
     private Long id;
     private String name;
     private String text;
+    private String userEmail;
 
     public Long getId() {
         return id;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public void setId(Long id) {

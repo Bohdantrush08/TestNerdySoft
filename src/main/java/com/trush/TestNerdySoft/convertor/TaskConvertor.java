@@ -19,7 +19,7 @@ public class TaskConvertor {
         TaskDTO taskDTO = new TaskDTO();
         taskDTO.setName(task.getName());
         taskDTO.setText(task.getText());
-        taskDTO.setUserId(task.getUser().getId());
+        taskDTO.setUserEmail(task.getUser().getEmail());
         return taskDTO;
     }
 
@@ -27,7 +27,7 @@ public class TaskConvertor {
         Task task = new Task();
         task.setName(taskDTO.getName());
         task.setText(taskDTO.getText());
-        task.setUser(userService.getUserById(taskDTO.getUserId()));
+        task.setUser(userService.getUserByEmail(taskDTO.getUserEmail()));
         return task;
     }
 
@@ -36,6 +36,7 @@ public class TaskConvertor {
      taskGetDTO.setId(task.getId());
      taskGetDTO.setName(task.getName());
      taskGetDTO.setText(task.getText());
+     taskGetDTO.setUserEmail(task.getUser().getEmail());
 
      return taskGetDTO;
     }
@@ -45,6 +46,8 @@ public class TaskConvertor {
         task.setId(taskGetDTO.getId());
         task.setName(taskGetDTO.getName());
         task.setText(taskGetDTO.getText());
+        task.setUser(userService.getUserByEmail(taskGetDTO.getUserEmail()));
+
         return task;
     }
 

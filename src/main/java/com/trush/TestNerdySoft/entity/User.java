@@ -47,7 +47,7 @@ public class User {
     @JoinTable(
             name = "user_task",
             joinColumns = {@JoinColumn(name = "User_id")},
-            inverseJoinColumns = {@JoinColumn(name = "Task_id")}
+            inverseJoinColumns = {@JoinColumn(name = "Task_username")}
     )
     private List<Task> tasks;
 
