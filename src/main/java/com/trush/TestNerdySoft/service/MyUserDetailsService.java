@@ -37,6 +37,8 @@ public class MyUserDetailsService implements UserDetailsService {
 
         User user = userRepository.getOneByEmail(email);
 
+
+
         if (user == null) {
             return new org.springframework.security.core.userdetails.User(
                     " ", " ", true, true, true, true,
@@ -49,6 +51,8 @@ public class MyUserDetailsService implements UserDetailsService {
                 user.getEmail(), user.getPassword(), user.isEnabled(), true, true,
                 true, getAuthorities(user.getRoles()));
     }
+
+
 
     private List<? extends GrantedAuthority> getAuthorities(List<Role> roles){
         return getGrantedAuthorities(getPrivileges(roles));

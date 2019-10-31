@@ -41,9 +41,9 @@ public class UserController {
     }
 
     @GetMapping("/account/{id}")
-        public ResponseEntity<SignUpDTO> getAccount(@PathVariable(name = "id") Long id){
+        public ResponseEntity<User> getAccount(@PathVariable(name = "id") Long id){
         User account = userService.getUserById(id);
-        return new ResponseEntity<SignUpDTO>(userConvertor.toSignUpDTO(account), HttpStatus.OK);
+        return new ResponseEntity<User>(account, HttpStatus.OK);
     }
 
 }

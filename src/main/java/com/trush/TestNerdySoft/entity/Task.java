@@ -1,7 +1,11 @@
 package com.trush.TestNerdySoft.entity;
 
-import javax.persistence.*;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.util.List;
+
+@NoArgsConstructor
 @Entity
 public class Task {
     @Id
@@ -13,6 +17,31 @@ public class Task {
 
     @Column
     private String text;
+
+    @ManyToMany(mappedBy = "tasks")
+    private List<User> users;
+
+
+    @ManyToOne
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 
     public Long getId() {
         return id;

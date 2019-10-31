@@ -1,5 +1,6 @@
 package com.trush.TestNerdySoft.controller;
 
+import com.trush.TestNerdySoft.dto.UsernameDTO;
 import com.trush.TestNerdySoft.security.JwtRequest;
 import com.trush.TestNerdySoft.security.JwtResponse;
 import com.trush.TestNerdySoft.security.JwtUtils;
@@ -11,12 +12,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @CrossOrigin
 public class JwtAuthController {
+
+
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -28,10 +36,17 @@ public class JwtAuthController {
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        String userDetails1 = userDetailsService.loadUserByUsername(authenticationRequest.getUsername()).getUsername();
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+
+
+        JwtResponse sd = new JwtResponse(token, userDetails1);
+
+        return ResponseEntity.ok(sd);
     }
+
+
 
     private void authenticate(String username, String password) throws Exception {
         try {

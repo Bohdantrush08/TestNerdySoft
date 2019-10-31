@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin
+
 @RestController
+@CrossOrigin
+
 public class TaskController {
 
     @Autowired
@@ -25,11 +27,18 @@ public class TaskController {
     private TaskConvertor taskConvertor;
 
     @PostMapping("/task")
-    //@PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<TaskDTO> createNewTask(@RequestBody TaskDTO taskDTO){
         Task task = taskConvertor.fromTaskDTO(taskDTO);
         task = taskService.createTask(task);
         return new ResponseEntity<>(taskConvertor.toTaskDTO(task), HttpStatus.OK);
+    }
+
+    @PutMapping("/task/{id}")
+    public ResponseEntity<TaskGetDTO> putTask(@RequestBody TaskGetDTO taskGetDTO){
+        Task task = taskConvertor.fromTaskGetDTO(taskGetDTO);
+        task = taskService.updateTask(task);
+        return new ResponseEntity<>(taskConvertor.toTaskGetDTO(task),HttpStatus.OK);
     }
 
     @GetMapping("/task/{id}")
@@ -46,6 +55,17 @@ public class TaskController {
         }
         return allTasksDTO;
     }
+
+    @GetMapping("/user/{username}/task")
+    public List<TaskGetDTO> fidAll(@PathVariable(name = "username") String username){
+        ArrayList<TaskGetDTO> allTasksDTO = new ArrayList<>();
+        for (Task task: taskService.getAllTaskByUser(username)){
+            allTasksDTO.add(taskConvertor.toTaskGetDTO(task));
+        }
+        return allTasksDTO;
+    }
+
+
 
 
     @DeleteMapping("/task/{id}")

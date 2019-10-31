@@ -16,5 +16,4 @@ public class TestNerdySoftApplication {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 }

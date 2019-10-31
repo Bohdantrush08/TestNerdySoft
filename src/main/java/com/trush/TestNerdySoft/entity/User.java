@@ -38,7 +38,34 @@ public class User {
             joinColumns = {@JoinColumn(name = "User_id")},
             inverseJoinColumns = {@JoinColumn(name = "Role_id")}
     )
+
+
+
     private List<Role> roles;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_task",
+            joinColumns = {@JoinColumn(name = "User_id")},
+            inverseJoinColumns = {@JoinColumn(name = "Task_id")}
+    )
+    private List<Task> tasks;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 
     public String getName() {
         return name;
