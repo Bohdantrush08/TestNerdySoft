@@ -18,7 +18,12 @@ public class Task {
     @Column
     private String text;
 
-    @ManyToMany(mappedBy = "tasks")
+    @ManyToMany
+    @JoinTable(
+            name = "task_users",
+            joinColumns = {@JoinColumn(name = "Task_id")},
+            inverseJoinColumns = {@JoinColumn(name = "User_id")}
+    )
     private List<User> users;
 
 
@@ -41,6 +46,10 @@ public class Task {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public void addUsers(User user){
+        this.users.add(user);
     }
 
     public Long getId() {

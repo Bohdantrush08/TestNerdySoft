@@ -51,12 +51,14 @@ public class UserConvertor {
     public SignInDTO toSigninDTO(User user){
         SignInDTO signInDTO = new SignInDTO();
         signInDTO.setIdUser(user.getId());
+        signInDTO.setEmail(user.getEmail());
         return  signInDTO;
     }
 
     public User fromSigninDTO(SignInDTO signInDTO){
         User user = new User();
         user.setId(signInDTO.getIdUser());
+        user.setEmail(signInDTO.getEmail());
         return user;
     }
 

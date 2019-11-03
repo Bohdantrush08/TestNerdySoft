@@ -1,9 +1,12 @@
 package com.trush.TestNerdySoft.entity;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "UserAccount")
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,17 +42,8 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "Role_id")}
     )
 
-
-
     private List<Role> roles;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_task",
-            joinColumns = {@JoinColumn(name = "User_id")},
-            inverseJoinColumns = {@JoinColumn(name = "Task_username")}
-    )
-    private List<Task> tasks;
 
     public Long getId() {
         return id;
@@ -59,13 +53,7 @@ public class User {
         this.id = id;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
-    }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
 
     public String getName() {
         return name;
@@ -79,7 +67,7 @@ public class User {
         return surname;
     }
 
-    public void setSurname(String xsurname) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 

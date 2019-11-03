@@ -6,6 +6,7 @@ import com.trush.TestNerdySoft.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Lob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +42,8 @@ public class TaskService {
 
     public ArrayList<Task> getAllTaskByUser(String username){
         return taskRepository.getAllByUserEmail(username);
+    }
+    public ArrayList<Task> getAllTaskByUserId(Long id){
+        return taskRepository.getAllByUserId(id);
     }
 }
